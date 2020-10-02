@@ -1,0 +1,42 @@
+#include <WiFi.h>
+#include <WiFiMulti.h>
+
+WiFiMulti WiFiMulti;
+#define LED1 2
+void setup()
+{
+    Serial.begin(115200);
+    delay(10);
+
+    // We start by connecting to a WiFi network
+    WiFiMulti.addAP("VTR-8870527", "w5jzHcfBkkyn");
+
+    Serial.println();
+    Serial.println();
+    Serial.print("Waiting for WiFi... ");
+
+    while(WiFiMulti.run() != WL_CONNECTED) {
+        Serial.print(".");
+        delay(500);
+    }
+
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
+
+    delay(500);
+    
+    pinMode(LED1, OUTPUT);
+}
+
+
+void loop()
+{
+  if (WiFiMulti.run() == WL_CONNECTED) {
+  digitalWrite(LED1, LOW);
+  delay(1000);
+  digitalWrite(LED1,HIGH);
+  delay(1000);
+  }
+  }
